@@ -1,0 +1,380 @@
+.markedit-version-browser {
+  --browser-color: #202124;
+  --browser-muted: #6b6d72;
+  --browser-background: #f7f7f8;
+  --browser-toolbar: #ffffff;
+  --browser-border: #d7d7da;
+  --browser-pressed: #e4e4e7;
+  --browser-accent: #1473e6;
+  --browser-destructive: #cf222e;
+  --browser-destructive-pressed: #ffebe9;
+  --browser-diff-background: #ffffff;
+  position: fixed;
+  z-index: 1000;
+  display: grid;
+  grid-template-rows: 44px minmax(0, 1fr);
+  overflow: hidden;
+  opacity: 0;
+  color: var(--browser-color);
+  background: var(--browser-background);
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: opacity 160ms ease-out;
+}
+
+.markedit-version-browser.is-visible {
+  opacity: 1;
+}
+
+.markedit-version-browser:focus {
+  outline: none;
+}
+
+.version-browser-header {
+  display: grid;
+  grid-template-columns: auto minmax(160px, 220px) minmax(220px, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 0 10px 0 14px;
+  border-bottom: 1px solid var(--browser-border);
+  background: var(--browser-toolbar);
+}
+
+.version-browser-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+}
+
+.version-browser-select-control {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.version-browser-select {
+  box-sizing: border-box;
+  width: 100%;
+  height: 24px;
+  border: 1px solid var(--browser-border);
+  border-radius: 5px;
+  color: inherit;
+  background-color: var(--browser-toolbar);
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.version-browser-select-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  font-size: 13px;
+}
+
+.version-browser-select[aria-busy='false'] + .version-browser-select-placeholder {
+  display: none;
+}
+
+.version-browser-view,
+.version-browser-actions {
+  display: flex;
+  align-items: center;
+}
+
+.version-browser-view {
+  box-sizing: border-box;
+  width: max-content;
+  height: 24px;
+  justify-self: center;
+  padding: 1px;
+  gap: 2px;
+  border: 0;
+  border-radius: 6px;
+  background: rgb(0 0 0 / 7%);
+}
+
+.version-browser-actions {
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.version-browser-restore-wrapper,
+.version-browser-delete-wrapper {
+  display: inline-flex;
+}
+
+.version-browser-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.version-browser-nonlocal {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 14px;
+  flex: none;
+  visibility: hidden;
+  color: var(--browser-muted);
+}
+
+.version-browser-nonlocal.is-visible {
+  visibility: visible;
+}
+
+.version-browser-cloud {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity 160ms ease-out, transform 180ms ease-out;
+}
+
+.version-browser-cloud-download,
+.version-browser-nonlocal.is-downloaded .version-browser-cloud-downloaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.version-browser-nonlocal.is-downloaded .version-browser-cloud-download {
+  opacity: 0;
+  transform: scale(0.75);
+}
+
+.version-browser-cloud svg {
+  height: auto;
+  max-height: 14px;
+  fill: currentColor;
+}
+
+.version-browser-cloud-download svg {
+  width: 16px;
+}
+
+.version-browser-cloud-downloaded svg {
+  width: 18px;
+}
+
+.version-browser-select,
+.version-browser-header button {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.version-browser-header button {
+  height: 27px;
+  padding: 0 10px;
+  border: 1px solid var(--browser-border);
+  border-radius: 5px;
+  color: inherit;
+  background: var(--browser-toolbar);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  cursor: default;
+}
+
+.version-browser-view button {
+  appearance: none;
+  flex: none;
+  box-sizing: border-box;
+  width: 68px;
+  height: 100%;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 4px;
+  color: rgb(0 0 0 / 85%);
+  background: transparent;
+}
+
+.version-browser-view button:active:not(.active):not(:disabled) {
+  background: rgb(0 0 0 / 4%);
+}
+
+.version-browser-view button.active {
+  color: #000000;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 12%);
+}
+
+.version-browser-actions button:active:not(:disabled):not([aria-disabled='true']) {
+  background: var(--browser-pressed);
+}
+
+.version-browser-header button[data-action='restore'] {
+  border-color: var(--browser-accent);
+  color: #ffffff;
+  background: var(--browser-accent);
+}
+
+.version-browser-actions button[data-action='restore']:active:not(:disabled):not([aria-disabled='true']) {
+  background: #0867d1;
+}
+
+.version-browser-header button[data-action='delete'] {
+  color: var(--browser-destructive);
+}
+
+.version-browser-actions button[data-action='delete']:active:not(:disabled):not([aria-disabled='true']) {
+  background: var(--browser-destructive-pressed);
+}
+
+.version-browser-header button:disabled,
+.version-browser-header button[aria-disabled='true'] {
+  opacity: 0.45;
+}
+
+.version-browser-header button:focus-visible {
+  outline: 2px solid var(--browser-accent);
+  outline-offset: 2px;
+}
+
+.version-browser-select:focus {
+  outline: none;
+}
+
+.markedit-version-browser.is-keyboard-navigation .version-browser-select:focus {
+  outline: 2px solid var(--browser-accent);
+  outline-offset: 2px;
+}
+
+.version-browser-body {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.version-browser-content {
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.version-browser-status {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  transform: translateY(-20px);
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 24px;
+  color: var(--browser-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.version-browser-status[hidden],
+.version-browser-diff[hidden] {
+  display: none;
+}
+
+.version-browser-spinner {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: 2px solid var(--browser-border);
+  border-top-color: var(--browser-accent);
+  border-radius: 50%;
+  animation: version-browser-spin 700ms linear infinite;
+}
+
+.version-browser-diff {
+  min-height: 0;
+  height: 100%;
+  overflow: auto;
+  background: var(--browser-diff-background);
+  --diffs-font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --diffs-font-size: 12px;
+  --diffs-line-height: 1.55;
+  --diffs-header-font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.version-browser-diff > diffs-container {
+  display: block;
+  width: calc(100% - 10px);
+  min-height: 100%;
+}
+
+@keyframes version-browser-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 620px) {
+  .version-browser-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .version-browser-select-wrapper {
+    display: none;
+  }
+
+  .version-browser-view {
+    justify-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .markedit-version-browser {
+    transition: none;
+  }
+
+  .version-browser-cloud {
+    transition: none;
+  }
+
+  .version-browser-spinner {
+    animation-duration: 1400ms;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .markedit-version-browser {
+    --browser-color: #f2f2f4;
+    --browser-muted: #a7a7ad;
+    --browser-background: #1c1c1e;
+    --browser-toolbar: #262628;
+    --browser-border: #3d3d40;
+    --browser-pressed: #353538;
+    --browser-destructive: #ff7b72;
+    --browser-destructive-pressed: #442426;
+    --browser-diff-background: #0d1117;
+  }
+
+  .version-browser-view {
+    background: rgb(255 255 255 / 8%);
+  }
+
+  .version-browser-view button {
+    color: rgb(255 255 255 / 80%);
+  }
+
+  .version-browser-view button:active:not(.active):not(:disabled) {
+    background: rgb(255 255 255 / 5%);
+  }
+
+  .version-browser-view button.active {
+    color: #ffffff;
+    background: rgb(255 255 255 / 12%);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 30%);
+  }
+}
