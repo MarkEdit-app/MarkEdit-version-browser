@@ -1,0 +1,29 @@
+{
+  "name": "markedit-version-browser",
+  "version": "1.0.0",
+  "description": "Browse version history with nicely rendered diffs.",
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run",
+    "reload": "osascript -e 'quit app \"MarkEdit\"' -e 'delay 1' -e 'launch app \"MarkEdit\"'",
+    "uninstall": "rm ~/Library/Containers/app.cyan.markedit/Data/Documents/scripts/$(node -p \"require('./package.json').name\").js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@codemirror/commands": "^6.0.0",
+    "@codemirror/language": "^6.0.0",
+    "@codemirror/state": "^6.0.0",
+    "@codemirror/view": "^6.0.0",
+    "@types/node": "^22.0.0",
+    "jsdom": "^30.0.1",
+    "markedit-api": "https://github.com/MarkEdit-app/MarkEdit-api#v0.33.0",
+    "markedit-vite": "https://github.com/MarkEdit-app/MarkEdit-vite#v0.6.0",
+    "typescript": "^7.0.0",
+    "vite": "^8.0.0",
+    "vitest": "^4.1.11",
+    "vite-plugin-singlefile": "^2.3.3"
+  },
+  "dependencies": {
+    "@pierre/diffs": "^1.3.6"
+  }
+}

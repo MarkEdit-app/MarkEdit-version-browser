@@ -1,0 +1,34 @@
+<header class="version-browser-header">
+  <div class="version-browser-view" role="group" aria-label="Diff layout">
+    <button type="button" data-style="unified">Unified</button>
+    <button type="button" data-style="split">Split</button>
+  </div>
+  <div class="version-browser-select-wrapper">
+    <div class="version-browser-select-control">
+      <select class="version-browser-select" aria-label="Saved version" aria-busy="true" disabled>
+        <option></option>
+      </select>
+      <span class="version-browser-select-placeholder" aria-hidden="true">–</span>
+    </div>
+    <span class="version-browser-nonlocal" role="img" aria-label="Stored in iCloud" aria-hidden="true" title="Stored in iCloud"></span>
+  </div>
+  <div class="version-browser-actions">
+    <span class="version-browser-restore-wrapper">
+      <button type="button" data-action="restore" disabled>Restore</button>
+      <span class="version-browser-restore-description version-browser-visually-hidden">The selected version is identical to the current document.</span>
+    </span>
+    <span class="version-browser-delete-wrapper">
+      <button type="button" data-action="delete" disabled>Delete</button>
+      <span class="version-browser-delete-description version-browser-visually-hidden">Versions stored in iCloud cannot be deleted.</span>
+    </span>
+    <button type="button" data-action="close">Close</button>
+  </div>
+</header>
+<div class="version-browser-body">
+  <main class="version-browser-content">
+    <div class="version-browser-status" role="status">
+      <span>Loading versions...</span>
+    </div>
+    <div class="version-browser-diff" hidden></div>
+  </main>
+</div>
